@@ -1,0 +1,25 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+       int left = 1, right = 1000000000;
+        while(left < right) {
+            int mid = (left + right) /2 ;
+            if(isValid(piles, h, mid)) right = mid;
+            else left = mid + 1;
+        }
+        
+        return right;
+    }
+    
+    public boolean isValid(int[] piles, int h, int T) {
+        int hours = 0;
+        for(int pile: piles){
+            if(pile <= T){
+                hours++;
+            }else{
+                hours +=  Math.ceil((double) pile  / T);
+            }
+        }
+        
+        return hours <= h;
+    }
+}

@@ -1,0 +1,28 @@
+class Solution {
+    public int shipWithinDays(int[] weights, int days) {
+        int left = 1, right = 50000 * 500;
+        while(left < right){
+            int mid = (left + right) / 2;
+            if(isValid(weights, days, mid)) right = mid;
+            else left = mid + 1;
+        }
+        
+        return right;
+    }
+    
+    public boolean isValid(int[] weights, int days, int T) {
+        int count = 1;
+        int sum = 0;
+        for(int weight:  weights){
+            if(weight > T) return false;
+            if(sum + weight <= T) {
+                sum += weight;
+            }else{
+                count++;
+                sum = weight;
+            }
+        }
+        
+        return count <= days;
+    }
+}
